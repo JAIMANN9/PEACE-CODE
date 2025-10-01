@@ -61,6 +61,13 @@ const translations = {
     "common.crisis": "Crisis Support",
     "common.confidential": "Confidential",
     "common.anonymous": "Anonymous",
+
+    // New Hero Section Keys
+    "home.hero.badge": "Your Digital Sanctuary",
+    "home.hero.title": "Welcome to Peace Code",
+    "home.hero.subtitle": "India's most compassionate Digital Psychological Intervention System for students. Experience AI-guided support, professional counseling, and healing resources.",
+    "home.hero.cta_main": "Find Your Peace Now",
+    "home.hero.cta_secondary": "Gentle Self-Assessment",
   },
   hi: {
     // Navigation
@@ -109,6 +116,13 @@ const translations = {
     "common.crisis": "संकट सहायता",
     "common.confidential": "गोपनीय",
     "common.anonymous": "अज्ञात",
+
+    // New Hero Section Keys
+    "home.hero.badge": "आपका डिजिटल अभयारण्य",
+    "home.hero.title": "Peace Code में आपका स्वागत है",
+    "home.hero.subtitle": "छात्रों के लिए भारत की सबसे दयालु डिजिटल मनोवैज्ञानिक हस्तक्षेप प्रणाली। एआई-निर्देशित सहायता, पेशेवर परामर्श और उपचार संसाधनों का अनुभव करें।",
+    "home.hero.cta_main": "अब अपनी शांति पाएं",
+    "home.hero.cta_secondary": "कोमल आत्म-मूल्यांकन",
   },
   ta: {
     // Navigation
@@ -157,6 +171,13 @@ const translations = {
     "common.crisis": "நெருக்கடி ஆதரவு",
     "common.confidential": "ரகசியம்",
     "common.anonymous": "அநாமதேய",
+
+    // New Hero Section Keys
+    "home.hero.badge": "Your Digital Sanctuary",
+    "home.hero.title": "Welcome to Peace Code",
+    "home.hero.subtitle": "India's most compassionate Digital Psychological Intervention System for students. Experience AI-guided support, professional counseling, and healing resources.",
+    "home.hero.cta_main": "Find Your Peace Now",
+    "home.hero.cta_secondary": "Gentle Self-Assessment",
   },
   te: {
     // Navigation
@@ -203,6 +224,13 @@ const translations = {
     "common.crisis": "సంక్షోభ మద్దతు",
     "common.confidential": "గోప్యత",
     "common.anonymous": "అనామక",
+
+    // New Hero Section Keys
+    "home.hero.badge": "Your Digital Sanctuary",
+    "home.hero.title": "Welcome to Peace Code",
+    "home.hero.subtitle": "India's most compassionate Digital Psychological Intervention System for students. Experience AI-guided support, professional counseling, and healing resources.",
+    "home.hero.cta_main": "Find Your Peace Now",
+    "home.hero.cta_secondary": "Gentle Self-Assessment",
   },
   bn: {
     // Navigation
@@ -227,7 +255,7 @@ const translations = {
     // AI Support
     "ai.title": "AI প্রাথমিক চিকিৎসা সহায়তা",
     "ai.subtitle":
-      "আমাদের AI-চালিত চ্যাটবটের সাথে তাৎক্ষণিক মানসিক স্বাস্থ্য সহায়তা পান। মোকাবেলার কৌশল প্রদান এবং প্রয়োজনে পেশাদার সাহায্যের সাথে সংযোগ করতে 24/7 উপলব্ধ।",
+      "আমাদের AI-চালিত চ্যাটবটের সাথে তাৎক্ষণিক মানসিক স্বাস্থ্য সহায়তা পান। মোকাবেলার কৌশ঳ প্রদান এবং প্রয়োজনে পেশাদার সাহায্যের সাথে সংযোগ করতে 24/7 উপলব্ধ।",
     "ai.howHelps": "AI সহায়তা কীভাবে সাহায্য করে",
     "ai.available247": "24/7 উপলব্ধতা",
     "ai.availableDesc": "দিন বা রাত যেকোনো সময় সহায়তা পান",
@@ -251,6 +279,13 @@ const translations = {
     "common.crisis": "সংকট সহায়তা",
     "common.confidential": "গোপনীয়",
     "common.anonymous": "বেনামী",
+
+    // New Hero Section Keys
+    "home.hero.badge": "Your Digital Sanctuary",
+    "home.hero.title": "Welcome to Peace Code",
+    "home.hero.subtitle": "India's most compassionate Digital Psychological Intervention System for students. Experience AI-guided support, professional counseling, and healing resources.",
+    "home.hero.cta_main": "Find Your Peace Now",
+    "home.hero.cta_secondary": "Gentle Self-Assessment",
   },
   mr: {
     // Navigation
@@ -299,6 +334,13 @@ const translations = {
     "common.crisis": "संकट सहाय्य",
     "common.confidential": "गुप्त",
     "common.anonymous": "अनामिक",
+
+    // New Hero Section Keys
+    "home.hero.badge": "Your Digital Sanctuary",
+    "home.hero.title": "Welcome to Peace Code",
+    "home.hero.subtitle": "India's most compassionate Digital Psychological Intervention System for students. Experience AI-guided support, professional counseling, and healing resources.",
+    "home.hero.cta_main": "Find Your Peace Now",
+    "home.hero.cta_secondary": "Gentle Self-Assessment",
   },
   gu: {
     // Navigation
@@ -323,7 +365,7 @@ const translations = {
     // AI Support
     "ai.title": "AI પ્રાથમિક સારવાર સહાય",
     "ai.subtitle":
-      "અમારા AI-સંચાલિત ચેટબોટ સાથે તાત્કાલિક માનસિક આરોગ્ય સહાય મેળવો. સામનો કરવાની વ્યૂહરચના પ્રદાન કરવા અને જરૂર પડે ત્યારે વ્યાવસાયિક મદદ સાથે જોડાવા માટે 24/7 ઉપલબ્ધ.",
+      "અમારા AI-સંચાલિત ચેટબોટ સાથે તાત્કાલિક માનસિક આરోગ్ય સહાય મેળવો. સામનો કરવાની વ્યૂહરચના પ્રદાન કરવા અને જરૂર પડે ત્યારે વ્યાવસાયિક મદદ સાથે જોડાવા માટે 24/7 ઉપલબ્ધ.",
     "ai.howHelps": "AI સહાય કેવી રીતે મદદ કરે છે",
     "ai.available247": "24/7 ઉપલબ્ધતા",
     "ai.availableDesc": "દિવસ કે રાત કોઈપણ સમયે સહાય મેળવો",
@@ -347,6 +389,13 @@ const translations = {
     "common.crisis": "કટોકટી સહાય",
     "common.confidential": "ગુપ્ત",
     "common.anonymous": "અનામ",
+
+    // New Hero Section Keys
+    "home.hero.badge": "Your Digital Sanctuary",
+    "home.hero.title": "Welcome to Peace Code",
+    "home.hero.subtitle": "India's most compassionate Digital Psychological Intervention System for students. Experience AI-guided support, professional counseling, and healing resources.",
+    "home.hero.cta_main": "Find Your Peace Now",
+    "home.hero.cta_secondary": "Gentle Self-Assessment",
   },
   kn: {
     // Navigation
@@ -360,7 +409,7 @@ const translations = {
 
     // Home Page
     "home.title": "Peace Code ಗೆ ಸ್ವಾಗತ",
-    "home.subtitle": "AI-ಮಾರ್ಗದರ್ಶಿತ ಬೆಂಬಲ, ವೃತ್ತಿಪರ ಸಲಹೆ ಮತ್ತು ಸಹವರ್ತಿ ಸಮುದಾಯದೊಂದಿಗೆ ವಿದ್ಯಾರ್ಥಿಗಳಿಗಾಗಿ ಸಮಗ್ರ ಡಿಜಿಟಲ್ ಮಾನಸಿಕ ಹಸ್ತಕ್ಷೇಪ ವ್ಯವಸ್ಥೆ.",
+    "home.subtitle": "AI-ಮಾರ್ಗದರ್ಶಿತ ಬೆಂಬಲ, ವೃತ್ತಿಪರ ಸಲಹೆ ಮತ್ತು ಸಹವರ್ತಿ ಸಮುದಾಯದೊಂದಿಗೆ ವಿದ್ಯಾರ್ಥుಗಳಿಗಾಗಿ ಸಮಗ್ರ ಡಿಜಿಟಲ್ ಮಾನಸಿಕ ಹಸ್ತಕ್ಷೇಪ ವ್ಯವಸ್ಥೆ.",
     "home.getAISupport": "AI ಬೆಂಬಲ ಪಡೆಯಿರಿ",
     "home.takeScreening": "ಪರೀಕ್ಷೆ ತೆಗೆದುಕೊಳ್ಳಿ",
     "home.mentalHealthSupport": "ಸಮಗ್ರ ಮಾನಸಿಕ ಆರೋಗ್ಯ ಬೆಂಬಲ",
@@ -394,6 +443,13 @@ const translations = {
     "common.crisis": "ಬಿಕ್ಕಟ್ಟು ಬೆಂಬಲ",
     "common.confidential": "ಗೌಪ್ಯ",
     "common.anonymous": "ಅನಾಮಧೇಯ",
+
+    // New Hero Section Keys
+    "home.hero.badge": "Your Digital Sanctuary",
+    "home.hero.title": "Welcome to Peace Code",
+    "home.hero.subtitle": "India's most compassionate Digital Psychological Intervention System for students. Experience AI-guided support, professional counseling, and healing resources.",
+    "home.hero.cta_main": "Find Your Peace Now",
+    "home.hero.cta_secondary": "Gentle Self-Assessment",
   },
   ml: {
     // Navigation
@@ -442,6 +498,13 @@ const translations = {
     "common.crisis": "പ്രതിസന്ധി പിന്തുണ",
     "common.confidential": "രഹസ്യം",
     "common.anonymous": "അജ്ഞാത",
+
+    // New Hero Section Keys
+    "home.hero.badge": "Your Digital Sanctuary",
+    "home.hero.title": "Welcome to Peace Code",
+    "home.hero.subtitle": "India's most compassionate Digital Psychological Intervention System for students. Experience AI-guided support, professional counseling, and healing resources.",
+    "home.hero.cta_main": "Find Your Peace Now",
+    "home.hero.cta_secondary": "Gentle Self-Assessment",
   },
   or: {
     // Navigation
@@ -488,6 +551,13 @@ const translations = {
     "common.crisis": "ସଙ୍କଟ ସହାୟତା",
     "common.confidential": "ଗୋପନୀୟ",
     "common.anonymous": "ଅଜ୍ଞାତ",
+
+    // New Hero Section Keys
+    "home.hero.badge": "Your Digital Sanctuary",
+    "home.hero.title": "Welcome to Peace Code",
+    "home.hero.subtitle": "India's most compassionate Digital Psychological Intervention System for students. Experience AI-guided support, professional counseling, and healing resources.",
+    "home.hero.cta_main": "Find Your Peace Now",
+    "home.hero.cta_secondary": "Gentle Self-Assessment",
   },
 }
 

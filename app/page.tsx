@@ -7,6 +7,9 @@ import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { useLanguage } from "@/lib/language-context"
+import { Bot, Users, Sparkles, ShieldCheck } from "lucide-react"
+import { CheckCircle, XCircle } from "lucide-react"
+import { Check, X } from "lucide-react"
 
 function AnimatedCounter({ end, duration = 2000, suffix = "" }: { end: number; duration?: number; suffix?: string }) {
   const [count, setCount] = useState(0)
@@ -71,8 +74,8 @@ function HomePage() {
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
-          <img src="/peaceful-ocean-waves-gentle-meditation-calming-bl.jpg" alt="Peaceful background" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-blue-900/40"></div>
+          <img src="/yoga-4489430.jpg" alt="Person meditating peacefully" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/60"></div>
         </div>
 
         {/* Hero Content */}
@@ -85,19 +88,15 @@ function HomePage() {
               className="px-8 py-3 text-lg font-medium bg-white/20 backdrop-blur-md text-white border-white/30 mb-8"
             >
               <span className="mr-2">✨</span>
-              Your Digital Sanctuary
+              {t("home.hero.badge")}
             </Badge>
 
             <h1 className="text-6xl sm:text-7xl lg:text-9xl font-bold text-white mb-8 text-balance leading-[0.9] text-shadow-soft">
-              Welcome to{" "}
-              <span className="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent animate-gradient-shift">
-                Peace Code
-              </span>
+              {t("home.hero.title")}
             </h1>
 
             <p className="text-2xl sm:text-3xl text-white/90 mb-12 max-w-5xl mx-auto text-pretty leading-relaxed text-shadow-soft">
-              India's most compassionate Digital Psychological Intervention System for students. Experience AI-guided
-              support, professional counseling, and healing resources.
+              {t("home.hero.subtitle")}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
@@ -108,7 +107,7 @@ function HomePage() {
               >
                 <Link href="/ai-support">
                   <span className="mr-3">💙</span>
-                  Find Your Peace Now
+                  {t("home.hero.cta_main")}
                   <span className="ml-3">→</span>
                 </Link>
               </Button>
@@ -120,7 +119,7 @@ function HomePage() {
               >
                 <Link href="/screening">
                   <span className="mr-3">🧠</span>
-                  Gentle Self-Assessment
+                  {t("home.hero.cta_secondary")}
                 </Link>
               </Button>
             </div>
@@ -139,9 +138,9 @@ function HomePage() {
       </section>
 
       {/* Statistics Section with Parallax */}
-      <section className="section-spacing bg-gradient-to-br from-primary/5 via-white to-accent/5">
+      <section className="section-spacing bg-gradient-to-b from-primary/10 via-blue-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20 scroll-reveal">
+          <div className="text-center mb-16 scroll-reveal">
             <h2 className="text-5xl sm:text-6xl font-bold text-foreground mb-8 text-balance">
               Transforming Lives <span className="text-primary">Across India</span>
             </h2>
@@ -150,7 +149,7 @@ function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
             {[
               { value: 50000, suffix: "+", label: "Hearts Healed", icon: "💙", description: "Students supported" },
               { value: 24, suffix: "/7", label: "Always Here", icon: "⏰", description: "Round-the-clock care" },
@@ -159,7 +158,8 @@ function HomePage() {
             ].map((stat, index) => (
               <Card
                 key={index}
-                className="text-center p-8 bg-white/80 backdrop-blur-sm border-primary/10 hover:shadow-2xl transition-all duration-500 scroll-reveal group"
+                className="text-center p-8 bg-white/60 backdrop-blur-md border-primary/10 hover:shadow-2xl transition-all duration-300 scroll-reveal group group-hover:animate-breathing-glow hover:scale-105"
+                style={{ animationDelay: `${index * 200}ms` }}
               >
                 <div className="mx-auto mb-6 p-6 bg-primary/10 rounded-3xl w-fit group-hover:scale-110 transition-transform duration-300">
                   <span className="text-4xl">{stat.icon}</span>
@@ -292,12 +292,56 @@ function HomePage() {
         </div>
       </section>
 
+      {/* New 'What Makes Us Different' Section (Table Layout) */}
+      <section className="section-spacing-lg bg-gradient-to-br from-primary/5 via-white to-accent/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-20 scroll-reveal">
+            <h2 className="text-6xl sm:text-7xl font-bold text-foreground mb-4 text-balance">
+              What Makes Our Services Superior?
+            </h2>
+            <p className="text-2xl text-muted-foreground max-w-4xl mx-auto text-pretty leading-relaxed">
+              A comprehensive, culturally-aware platform designed specifically for students in India.
+            </p>
+          </div>
+
+          <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-2xl border-primary/10 scroll-reveal">
+            <div className="grid grid-cols-5 items-center font-bold text-lg text-center border-b-2 border-border/50">
+              <div className="col-span-3 text-left p-6">Feature</div>
+              <div className="p-6 bg-primary text-primary-foreground rounded-tr-2xl">Peace Code</div>
+              <div className="p-6 text-muted-foreground">Others</div>
+            </div>
+
+            {[
+              { feature: "24/7 AI First-Aid & Support", peaceCode: true, others: false },
+              { feature: "Culturally-Aware Care for India", peaceCode: true, others: false },
+              { feature: "Holistic Wellness Suite (Journal, Breathe, etc.)", peaceCode: true, others: false },
+              { feature: "Moderated & Anonymous Peer Community", peaceCode: true, others: true },
+              { feature: "Advanced Screening Tools", peaceCode: true, others: false },
+              { feature: "Personalized Growth Journeys", peaceCode: true, others: false },
+              { feature: "Proactive Mental Health Check-ins", peaceCode: true, others: false },
+            ].map((item, index) => (
+              <div key={index} className="grid grid-cols-5 items-center border-t border-border/50">
+                <div className="col-span-3 p-6 text-foreground/90 font-medium">
+                  {item.feature}
+                </div>
+                <div className="flex justify-center items-center p-6 bg-primary text-primary-foreground h-full">
+                  {item.peaceCode ? <Check className="h-8 w-8 text-white" /> : <X className="h-8 w-8 text-white/50" />}
+                </div>
+                <div className="flex justify-center items-center p-6">
+                  {item.others ? <Check className="h-8 w-8 text-primary" /> : <X className="h-8 w-8 text-red-400" />}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Parallax Section with static background image instead of video */}
       <section
         className="parallax-section relative min-h-screen flex items-center justify-center"
         style={{
           backgroundImage:
-            "url(/placeholder.svg?height=1080&width=1920&query=peaceful nature landscape mountains meditation sunrise calm)",
+            "url(/mental-health-2019924.jpg)",
           backgroundAttachment: "fixed",
           backgroundSize: "cover",
           backgroundPosition: "center",

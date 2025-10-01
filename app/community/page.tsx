@@ -1,67 +1,21 @@
+"use client"
+
+import { useState, useEffect } from "react"
 import { Navigation } from "@/components/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { CommunityPost } from "@/components/community/community-post"
 import { CategoryCard } from "@/components/community/category-card"
 import { Input } from "@/components/ui/input"
-import { Search, Plus, Users, MessageCircle, Heart, Shield } from "lucide-react"
+import { Search, Plus, Users, MessageCircle, Heart, Shield, ChevronDown } from "lucide-react"
 import Link from "next/link"
+import { categories } from "@/lib/community-data"
 
-const categories = [
-  {
-    id: "anxiety",
-    name: "Anxiety & Stress",
-    description: "Share experiences and coping strategies for anxiety and academic stress",
-    posts: 234,
-    members: 1205,
-    color: "bg-blue-100 text-blue-700",
-    icon: Heart,
-  },
-  {
-    id: "depression",
-    name: "Depression Support",
-    description: "A safe space to discuss depression and find peer support",
-    posts: 189,
-    members: 892,
-    color: "bg-purple-100 text-purple-700",
-    icon: Users,
-  },
-  {
-    id: "academic",
-    name: "Academic Pressure",
-    description: "Dealing with academic stress, perfectionism, and burnout",
-    posts: 156,
-    members: 743,
-    color: "bg-green-100 text-green-700",
-    icon: MessageCircle,
-  },
-  {
-    id: "relationships",
-    name: "Relationships",
-    description: "Navigating friendships, family, and romantic relationships",
-    posts: 98,
-    members: 567,
-    color: "bg-pink-100 text-pink-700",
-    icon: Heart,
-  },
-  {
-    id: "self-care",
-    name: "Self-Care & Wellness",
-    description: "Tips and discussions about mental health maintenance",
-    posts: 145,
-    members: 623,
-    color: "bg-yellow-100 text-yellow-700",
-    icon: Shield,
-  },
-  {
-    id: "crisis",
-    name: "Crisis Support",
-    description: "Immediate peer support for those in crisis (moderated 24/7)",
-    posts: 67,
-    members: 234,
-    color: "bg-red-100 text-red-700",
-    icon: Shield,
-  },
+const heroImages = [
+  "/pexels-tima-miroshnichenko-5710929.jpg",
+  "/pexels-tima-miroshnichenko-5711022.jpg",
+  "/pexels-tima-miroshnichenko-5711372.jpg",
+  "/pexels-tima-miroshnichenko-5711382.jpg",
 ]
 
 const recentPosts = [
@@ -104,22 +58,53 @@ const recentPosts = [
 ]
 
 export default function CommunityPage() {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length)
+    }, 30000) // Change image every 30 seconds
+
+    return () => clearInterval(timer)
+  }, [])
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
 
-      <div className="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-6">
-              Student <span className="text-primary">Community</span>
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto text-pretty">
-              Connect with fellow students, share experiences, and find support in a safe, moderated environment.
-            </p>
-          </div>
+      {/* New Hero Section */}
+      <section className="relative h-screen flex items-center justify-center text-center text-white overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          {heroImages.map((src, index) => (
+            <img
+              key={src}
+              src={src}
+              alt="Community support session"
+              className={`w-full h-full object-cover absolute top-0 left-0 transition-opacity duration-1000 ${
+                index === currentImageIndex ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          ))}
+          <div className="absolute inset-0 bg-black/40"></div>
+        </div>
+        <div className="relative z-10 p-4 animate-fade-in-up">
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold mb-4 text-balance tracking-tight text-shadow-soft">
+            You Are Not Alone
+          </h1>
+          <p className="text-lg sm:text-xl lg:text-2xl max-w-3xl mx-auto text-white/90 text-balance text-shadow-soft">
+            Share your story, find support, and connect with a community that understands.
+          </p>
+          <Button size="lg" asChild className="mt-8 text-lg px-8 py-4 bg-white text-primary hover:bg-white/90">
+            <Link href="/community/new-post">Join the Conversation</Link>
+          </Button>
+        </div>
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+          <ChevronDown className="w-8 h-8 text-white/70" />
+        </div>
+      </section>
 
+      <main className="pt-16 pb-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
           {/* Community Guidelines */}
           <Card className="mb-8 border-primary/20 bg-primary/5">
             <CardHeader>
@@ -209,7 +194,7 @@ export default function CommunityPage() {
             <div className="lg:col-span-3 space-y-8">
               {/* Categories */}
               <div>
-                <h2 className="text-2xl font-bold text-foreground mb-6">Discussion Categories</h2>
+                <h2 className="text-2xl font-bold text-foreground mb-6">Discussion Groups</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {categories.map((category) => (
                     <CategoryCard key={category.id} {...category} />
@@ -234,7 +219,7 @@ export default function CommunityPage() {
             </div>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   )
 }

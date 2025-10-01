@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Menu, X, Heart, Users, Bot, LogIn, UserPlus, Crown, ClipboardList } from "lucide-react"
@@ -10,9 +10,38 @@ import { useLanguage } from "@/lib/language-context"
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const { t } = useLanguage()
+  const [isVisible, setIsVisible] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
+
+  useEffect(() => {
+    const controlNavbar = () => {
+      if (typeof window !== "undefined") {
+        if (window.scrollY > lastScrollY && window.scrollY > 100) {
+          // Scrolling down
+          setIsVisible(false)
+        } else {
+          // Scrolling up
+          setIsVisible(true)
+        }
+        setLastScrollY(window.scrollY)
+      }
+    }
+
+    if (typeof window !== "undefined") {
+      window.addEventListener("scroll", controlNavbar)
+
+      return () => {
+        window.removeEventListener("scroll", controlNavbar)
+      }
+    }
+  }, [lastScrollY])
 
   return (
-    <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-md border-b border-border z-50">
+    <nav
+      className={`fixed top-0 w-full bg-background/80 backdrop-blur-md border-b border-border z-50 transition-transform duration-300 ${
+        isVisible ? "transform-none" : "-translate-y-full"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}

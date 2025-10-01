@@ -180,7 +180,7 @@ export default function PricingPage() {
               </Badge>
             </div>
             <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
-              Simple, <span className="bg-calming-gradient bg-clip-text text-transparent">Transparent</span> Pricing
+              Simple, <span className="text-primary">Transparent</span> Pricing
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
               Start your mental wellness journey for free, or unlock deeper growth with premium features designed by

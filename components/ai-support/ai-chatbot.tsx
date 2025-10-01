@@ -45,25 +45,57 @@ const copingStrategies = {
 
 const crisisKeywords = ["suicide", "kill myself", "end it all", "hurt myself", "self-harm", "die", "death"]
 
+const introductoryMessages = [
+  "Hello! I'm your AI mental health support assistant.",
+  "I'm here to listen and provide coping strategies for things like anxiety, stress, and feeling down.",
+  "How are you feeling today?",
+]
+
 export function AIChatbot() {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: "1",
-      type: "ai",
-      content:
-        "Hello! I'm your AI mental health support assistant. I'm here to listen and provide coping strategies. How are you feeling today?",
-      timestamp: new Date(),
-    },
-  ])
+  const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState("")
-  const [isTyping, setIsTyping] = useState(false)
+  const [isTyping, setIsTyping] = useState(true) // Start with typing indicator
   const scrollAreaRef = useRef<HTMLDivElement>(null)
 
+  const conversationStarters = [
+    "I'm feeling anxious about my exams.",
+    "I've been feeling down lately.",
+    "I'm stressed about my workload.",
+    "Can you give me a mindfulness tip?",
+  ]
+
   useEffect(() => {
+    // Scroll to bottom when messages change
     if (scrollAreaRef.current) {
       scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight
     }
   }, [messages])
+
+  useEffect(() => {
+    // "Typing" effect for introductory messages
+    let messageIndex = 0
+    const typeNextMessage = () => {
+      if (messageIndex < introductoryMessages.length) {
+        setTimeout(() => {
+          setMessages((prev) => [
+            ...prev,
+            {
+              id: `intro-${messageIndex}`,
+              type: "ai",
+              content: introductoryMessages[messageIndex],
+              timestamp: new Date(),
+            },
+          ])
+          messageIndex++
+          typeNextMessage()
+        }, 1500) // Delay between messages
+      } else {
+        setIsTyping(false) // Stop typing indicator after last message
+      }
+    }
+
+    typeNextMessage()
+  }, [])
 
   const detectCrisis = (message: string): boolean => {
     return crisisKeywords.some((keyword) => message.toLowerCase().includes(keyword))
@@ -76,7 +108,7 @@ export function AIChatbot() {
     if (detectCrisis(userMessage)) {
       return {
         content:
-          "I'm very concerned about what you've shared. Please reach out for immediate help:\n\n• Call 988 (Suicide & Crisis Lifeline)\n• Contact emergency services (911)\n• Reach out to a trusted friend, family member, or counselor\n\nYour life has value, and there are people who want to help you. Would you like me to help you find local crisis resources?",
+          "I'm very concerned about what you've shared. Please reach out for immediate help:\n\n• Call 988 (Suicide & Crisis Lifeline)\n• Contact emergency services (102)\n• Reach out to a trusted friend, family member, or counselor\n\nYour life has value, and there are people who want to help you. Would you like me to help you find local crisis resources?",
         needsProfessionalHelp: true,
       }
     }
@@ -145,24 +177,27 @@ export function AIChatbot() {
     }
   }
 
-  const handleSend = async () => {
-    if (!input.trim()) return
+  const handleSend = async (messageContent?: string) => {
+    const currentMessage = messageContent || input
+    if (!currentMessage.trim()) return
 
     const userMessage: Message = {
       id: Date.now().toString(),
       type: "user",
-      content: input,
+      content: currentMessage,
       timestamp: new Date(),
     }
 
     setMessages((prev) => [...prev, userMessage])
-    setInput("")
+    if (!messageContent) {
+      setInput("")
+    }
     setIsTyping(true)
 
     // Simulate AI thinking time
     setTimeout(
       () => {
-        const response = generateResponse(input)
+        const response = generateResponse(currentMessage)
         const aiMessage: Message = {
           id: (Date.now() + 1).toString(),
           type: "ai",
@@ -186,20 +221,35 @@ export function AIChatbot() {
   }
 
   const clearChat = () => {
-    setMessages([
-      {
-        id: "1",
-        type: "ai",
-        content:
-          "Hello! I'm your AI mental health support assistant. I'm here to listen and provide coping strategies. How are you feeling today?",
-        timestamp: new Date(),
-      },
-    ])
+    setMessages([])
+    setIsTyping(true)
+    // Re-trigger the introductory message sequence
+    let messageIndex = 0
+    const typeNextMessage = () => {
+      if (messageIndex < introductoryMessages.length) {
+        setTimeout(() => {
+          setMessages((prev) => [
+            ...prev,
+            {
+              id: `intro-${messageIndex}`,
+              type: "ai",
+              content: introductoryMessages[messageIndex],
+              timestamp: new Date(),
+            },
+          ])
+          messageIndex++
+          typeNextMessage()
+        }, 1500)
+      } else {
+        setIsTyping(false)
+      }
+    }
+    typeNextMessage()
   }
 
   return (
-    <Card className="h-[600px] flex flex-col">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+    <Card className="h-full flex flex-col border-primary/20 shadow-lg bg-gradient-to-br from-gray-50 to-blue-50">
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4 border-b bg-white">
         <CardTitle className="flex items-center space-x-2">
           <Bot className="h-5 w-5 text-primary" />
           <span>AI Mental Health Assistant</span>
@@ -209,11 +259,14 @@ export function AIChatbot() {
         </Button>
       </CardHeader>
 
-      <CardContent className="flex-1 flex flex-col space-y-4">
-        <ScrollArea className="flex-1 pr-4" ref={scrollAreaRef}>
+      <CardContent className="flex-1 flex flex-col p-0 overflow-hidden">
+        <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
           <div className="space-y-4">
             {messages.map((message) => (
-              <div key={message.id} className={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}>
+              <div
+                key={message.id}
+                className={`flex ${message.type === "user" ? "justify-end" : "justify-start"} animate-fade-in-slide-up`}
+              >
                 <div
                   className={`flex items-start space-x-2 max-w-[80%] ${
                     message.type === "user" ? "flex-row-reverse space-x-reverse" : ""
@@ -227,12 +280,12 @@ export function AIChatbot() {
                     )}
                   </div>
                   <div
-                    className={`p-3 rounded-lg ${
+                    className={`p-3 rounded-lg transition-transform hover:scale-[1.02] ${
                       message.type === "user"
-                        ? "bg-primary text-primary-foreground"
+                        ? "bg-gradient-to-br from-primary to-blue-600 text-primary-foreground shadow-md"
                         : message.needsProfessionalHelp
-                          ? "bg-red-50 border border-red-200"
-                          : "bg-muted"
+                        ? "bg-red-50 border border-red-200"
+                        : "bg-white shadow-sm"
                     }`}
                   >
                     {message.needsProfessionalHelp && (
@@ -249,20 +302,23 @@ export function AIChatbot() {
             ))}
 
             {isTyping && (
-              <div className="flex justify-start">
+              <div className="flex justify-start animate-fade-in-slide-up">
                 <div className="flex items-start space-x-2">
                   <div className="p-2 rounded-full bg-muted">
                     <Bot className="h-4 w-4 text-muted-foreground" />
                   </div>
-                  <div className="p-3 rounded-lg bg-muted">
+                  <div className="p-3 rounded-lg bg-white shadow-sm">
                     <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"></div>
                       <div
-                        className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"
+                        className="w-2 h-2 bg-primary/60 rounded-full animate-bounce"
+                        style={{ animationDelay: "0s" }}
+                      ></div>
+                      <div
+                        className="w-2 h-2 bg-primary/60 rounded-full animate-bounce"
                         style={{ animationDelay: "0.1s" }}
                       ></div>
                       <div
-                        className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"
+                        className="w-2 h-2 bg-primary/60 rounded-full animate-bounce"
                         style={{ animationDelay: "0.2s" }}
                       ></div>
                     </div>
@@ -273,23 +329,42 @@ export function AIChatbot() {
           </div>
         </ScrollArea>
 
-        <div className="flex space-x-2">
-          <Input
-            placeholder="Type your message here..."
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyPress={handleKeyPress}
-            disabled={isTyping}
-          />
-          <Button onClick={handleSend} disabled={isTyping || !input.trim()}>
-            <Send className="h-4 w-4" />
-          </Button>
-        </div>
+        <div className="border-t p-4 bg-white/80 backdrop-blur-sm">
+          <div className="flex flex-wrap gap-2 mb-2">
+            {messages.length === 0 &&
+              !isTyping &&
+              conversationStarters.map((starter) => (
+                <Button
+                  key={starter}
+                  variant="outline"
+                  size="sm"
+                  className="bg-background"
+                  onClick={() => handleSend(starter)}
+                  disabled={isTyping}
+                >
+                  {starter}
+                </Button>
+              ))}
+          </div>
 
-        <p className="text-xs text-muted-foreground text-center">
-          This AI assistant provides general support. For serious mental health concerns, please consult a professional
-          counselor.
-        </p>
+          <div className="flex space-x-2">
+            <Input
+              placeholder="Type your message here..."
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyPress={handleKeyPress}
+              disabled={isTyping}
+              className="focus-visible:ring-2 focus-visible:ring-primary/50"
+            />
+            <Button
+              onClick={() => handleSend()}
+              disabled={isTyping || !input.trim()}
+              className="transition-transform hover:scale-105"
+            >
+              <Send className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
       </CardContent>
     </Card>
   )

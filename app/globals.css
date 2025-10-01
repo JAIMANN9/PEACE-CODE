@@ -311,3 +311,51 @@ html {
 .border-light-blue {
   border-color: #e3f0fc;
 }
+
+/* Custom Animations */
+@layer utilities {
+  @keyframes breathing-glow {
+    0%,
+    100% {
+      box-shadow: 0 0 20px 0px hsl(var(--primary) / 0.2), 0 0 0px 0px hsl(var(--primary) / 0.1);
+    }
+    50% {
+      box-shadow: 0 0 30px 5px hsl(var(--primary) / 0.4), 0 0 5px 1px hsl(var(--primary) / 0.2);
+    }
+  }
+
+  .animate-breathing-glow {
+    animation: breathing-glow 4s ease-in-out infinite;
+  }
+
+  @keyframes breathing-glow-hover {
+    0% {
+      box-shadow: 0 0 20px 0px hsl(var(--primary) / 0.2);
+    }
+    50% {
+      box-shadow: 0 0 40px 10px hsl(var(--primary) / 0.5), 0 0 10px 2px hsl(var(--primary) / 0.3);
+    }
+    100% {
+      box-shadow: 0 0 20px 0px hsl(var(--primary) / 0.2);
+    }
+  }
+
+  .group-hover\:animate-breathing-glow:hover {
+    animation: breathing-glow-hover 1.5s ease-in-out;
+  }
+
+  @keyframes fade-in-slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-slide-up {
+    animation: fade-in-slide-up 0.4s ease-out forwards;
+  }
+}

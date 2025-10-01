@@ -10,6 +10,8 @@ import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
 import Link from "next/link"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { createClient } from "@/lib/supabase/client"
 import { Heart } from "lucide-react"
 
 export default function SignupPage() {
@@ -31,6 +33,8 @@ export default function SignupPage() {
   })
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
+  const supabase = createClient()
 
   const handleInputChange = (field: string, value: string | boolean) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
@@ -61,20 +65,36 @@ export default function SignupPage() {
     }
 
     try {
-      // Simulate API call delay
-      await new Promise((resolve) => setTimeout(resolve, 2000))
+      const { error: signUpError, data: signUpData } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          data: {
+            first_name: formData.firstName,
+            last_name: formData.lastName,
+            role: formData.role,
+          },
+        },
+      })
 
-      // Store form data in localStorage for demo purposes
-      localStorage.setItem(
-        "peacecode_user",
-        JSON.stringify({
-          ...formData,
-          id: Date.now(),
-          createdAt: new Date().toISOString(),
-        }),
-      )
+      if (signUpError) {
+        setError(signUpError.message)
+        setIsLoading(false)
+        return
+      }
 
-      alert("Account created successfully! (Frontend demo - no actual database)")
+      // Insert into profiles table (for OAuth redirects email confirmation etc.)
+      if (signUpData.user) {
+        await supabase.from("profiles").insert({
+          id: signUpData.user.id,
+          email: signUpData.user.email,
+          role: formData.role,
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+        })
+      }
+
+      router.push("/auth/check-email")
     } catch (error: unknown) {
       setError("An error occurred during signup")
     } finally {

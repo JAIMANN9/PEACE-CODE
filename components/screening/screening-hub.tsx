@@ -10,6 +10,7 @@ import { GAD7Screening } from "./gad7-screening"
 import { GHQScreening } from "./ghq-screening"
 import { ScreeningResults } from "./screening-results"
 import { ClipboardList, TrendingUp, Shield, Clock, Users, BarChart3 } from "lucide-react"
+import { ScreeningIntroduction } from "./screening-introduction"
 
 interface ScreeningResult {
   type: "PHQ-9" | "GAD-7" | "GHQ-12"
@@ -19,68 +20,117 @@ interface ScreeningResult {
   recommendations: string[]
 }
 
+const screeningTools = [
+  {
+    id: "phq9",
+    name: "PHQ-9",
+    title: "Depression Screening",
+    description: "Patient Health Questionnaire for depression assessment",
+    icon: <ClipboardList className="h-6 w-6" />,
+    duration: "5-7 minutes",
+    questions: 9,
+    color: "blue",
+    knowledge: {
+      purpose: "To screen for the presence and severity of depression.",
+      content: "It covers the 9 diagnostic criteria for major depressive disorder.",
+      scoring:
+        "Scores are interpreted as minimal (1-4), mild (5-9), moderate (10-14), moderately severe (15-19), and severe (20-27) depression.",
+    },
+  },
+  {
+    id: "gad7",
+    name: "GAD-7",
+    title: "Anxiety Assessment",
+    description: "Generalized Anxiety Disorder scale",
+    icon: <TrendingUp className="h-6 w-6" />,
+    duration: "3-5 minutes",
+    questions: 7,
+    color: "green",
+    knowledge: {
+      purpose: "To screen for and measure the severity of generalized anxiety disorder.",
+      content: "It assesses symptoms like excessive worry, restlessness, and irritability.",
+      scoring: "Scores are interpreted as mild (5-9), moderate (10-14), and severe (15-21) anxiety.",
+    },
+  },
+  {
+    id: "ghq",
+    name: "GHQ-12",
+    title: "General Health Questionnaire",
+    description: "Overall psychological well-being assessment",
+    icon: <Shield className="h-6 w-6" />,
+    duration: "4-6 minutes",
+    questions: 12,
+    color: "purple",
+    knowledge: {
+      purpose: "To screen for general, non-specific psychological distress and identify short-term changes in mental health.",
+      content: "It asks about feelings of strain, depression, inability to cope, and anxiety.",
+      scoring:
+        "A score above a certain threshold (typically 11-12) suggests the presence of psychological distress that may warrant further evaluation.",
+    },
+  },
+]
+
 export function ScreeningHub() {
   const [activeScreening, setActiveScreening] = useState<string | null>(null)
+  const [viewingKnowledgeFor, setViewingKnowledgeFor] = useState<string | null>(null)
   const [completedScreenings, setCompletedScreenings] = useState<ScreeningResult[]>([])
+  const [activeTab, setActiveTab] = useState("available")
 
   const handleScreeningComplete = (result: ScreeningResult) => {
     setCompletedScreenings((prev) => [...prev, result])
     setActiveScreening(null)
+    setActiveTab("results")
   }
 
-  const screeningTools = [
-    {
-      id: "phq9",
-      name: "PHQ-9",
-      title: "Depression Screening",
-      description: "Patient Health Questionnaire for depression assessment",
-      icon: <ClipboardList className="h-6 w-6" />,
-      duration: "5-7 minutes",
-      questions: 9,
-      color: "blue",
-    },
-    {
-      id: "gad7",
-      name: "GAD-7",
-      title: "Anxiety Assessment",
-      description: "Generalized Anxiety Disorder scale",
-      icon: <TrendingUp className="h-6 w-6" />,
-      duration: "3-5 minutes",
-      questions: 7,
-      color: "green",
-    },
-    {
-      id: "ghq",
-      name: "GHQ-12",
-      title: "General Health Questionnaire",
-      description: "Overall psychological well-being assessment",
-      icon: <Shield className="h-6 w-6" />,
-      duration: "4-6 minutes",
-      questions: 12,
-      color: "purple",
-    },
-  ]
+  const handleStartIntro = (toolId: string) => {
+    setViewingKnowledgeFor(toolId)
+  }
+
+  const handleStartTest = () => {
+    if (viewingKnowledgeFor) {
+      setActiveScreening(viewingKnowledgeFor)
+      setViewingKnowledgeFor(null)
+    }
+  }
+
+  const selectedTool = screeningTools.find((tool) => tool.id === viewingKnowledgeFor)
+
+  if (viewingKnowledgeFor && selectedTool) {
+    return (
+      <ScreeningIntroduction
+        testName={selectedTool.name}
+        testTitle={selectedTool.title}
+        knowledge={selectedTool.knowledge}
+        onStart={handleStartTest}
+        onCancel={() => setViewingKnowledgeFor(null)}
+      />
+    )
+  }
 
   if (activeScreening) {
     return (
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold">{screeningTools.find((tool) => tool.id === activeScreening)?.title}</h2>
-          <Button variant="outline" onClick={() => setActiveScreening(null)}>
-            Back to Screenings
-          </Button>
-        </div>
+      <div className="fixed inset-0 bg-background z-[100] p-4 sm:p-6 lg:p-8 overflow-y-auto">
+        <div className="max-w-2xl mx-auto">
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold">{screeningTools.find((tool) => tool.id === activeScreening)?.title}</h2>
+              <Button variant="outline" onClick={() => setActiveScreening(null)}>
+                Cancel Test
+              </Button>
+            </div>
 
-        {activeScreening === "phq9" && <PHQ9Screening onComplete={handleScreeningComplete} />}
-        {activeScreening === "gad7" && <GAD7Screening onComplete={handleScreeningComplete} />}
-        {activeScreening === "ghq" && <GHQScreening onComplete={handleScreeningComplete} />}
+            {activeScreening === "phq9" && <PHQ9Screening onComplete={handleScreeningComplete} />}
+            {activeScreening === "gad7" && <GAD7Screening onComplete={handleScreeningComplete} />}
+            {activeScreening === "ghq" && <GHQScreening onComplete={handleScreeningComplete} />}
+          </div>
+        </div>
       </div>
     )
   }
 
   return (
     <div className="space-y-8">
-      <Tabs defaultValue="available" className="w-full">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="available">Available Screenings</TabsTrigger>
           <TabsTrigger value="results">My Results ({completedScreenings.length})</TabsTrigger>
@@ -114,7 +164,7 @@ export function ScreeningHub() {
 
                   <Button
                     className="w-full group-hover:bg-primary/90 transition-colors"
-                    onClick={() => setActiveScreening(tool.id)}
+                    onClick={() => handleStartIntro(tool.id)}
                   >
                     Start {tool.name} Assessment
                   </Button>

@@ -2,7 +2,7 @@
 create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   email text not null,
-  role text not null default 'student' check (role in ('student', 'administrator')),
+  role text not null default 'student' check (role in ('student', 'administrator', 'counselor')),
   first_name text,
   last_name text,
   created_at timestamp with time zone default timezone('utc'::text, now()) not null,
@@ -36,5 +36,16 @@ create policy "profiles_admin_select_all"
     exists (
       select 1 from public.profiles
       where id = auth.uid() and role = 'administrator'
+    )
+  );
+
+-- Allow counselors to view student profiles (optional: you can scope as needed)
+create policy "profiles_counselor_select_students"
+  on public.profiles for select
+  using (
+    role = 'student' and
+    exists (
+      select 1 from public.profiles
+      where id = auth.uid() and role = 'counselor'
     )
   );

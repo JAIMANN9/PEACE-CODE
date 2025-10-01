@@ -84,12 +84,7 @@ export default function NewPostPage() {
                         988
                       </a>
                     </p>
-                    <p className="text-sm">
-                      <strong>Emergency:</strong>{" "}
-                      <a href="tel:911" className="text-primary hover:underline">
-                        911
-                      </a>
-                    </p>
+                    <p className="text-sm text-muted-foreground">For emergencies, call <a href="tel:102" className="text-primary hover:underline">102</a></p>
                   </div>
                 </CardContent>
               </Card>

@@ -85,8 +85,8 @@ export default function BookingPage() {
                     </p>
                     <p className="text-sm">
                       <strong>Emergency:</strong>{" "}
-                      <a href="tel:911" className="text-primary hover:underline">
-                        911
+                      <a href="tel:102" className="text-primary hover:underline">
+                        102
                       </a>
                     </p>
                   </div>
