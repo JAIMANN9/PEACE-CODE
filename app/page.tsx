@@ -10,6 +10,7 @@ import { useLanguage } from "@/lib/language-context"
 import { Bot, Users, Sparkles, ShieldCheck } from "lucide-react"
 import { CheckCircle, XCircle } from "lucide-react"
 import { Check, X } from "lucide-react"
+import Image from "next/image"
 
 function AnimatedCounter({ end, duration = 2000, suffix = "" }: { end: number; duration?: number; suffix?: string }) {
   const [count, setCount] = useState(0)
@@ -132,6 +133,66 @@ function HomePage() {
             <span className="text-sm mb-2">Discover More</span>
             <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
               <div className="w-1 h-3 bg-white/50 rounded-full mt-2 animate-pulse"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats bar */}
+      <section className="-mt-12 relative z-20 px-4">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 bg-white shadow-lg rounded-2xl overflow-hidden">
+          {[
+            {
+              stat: "9 out of 10",
+              desc: "users say their first session helped them understand their feelings.",
+            },
+            {
+              stat: "93%",
+              desc: "notice better sleep, focus and fewer spirals within 3-4 sessions.",
+            },
+            {
+              stat: "2× better",
+              desc: "outcomes when therapy is combined with our self-help tools.",
+            },
+          ].map((s) => (
+            <div key={s.stat} className="p-6 border-sky-50/80 border-b sm:border-b-0 sm:border-r last:border-none">
+              <h3 className="text-2xl font-extrabold text-sky-900 mb-1">{s.stat}</h3>
+              <p className="text-sky-700 text-sm leading-relaxed">{s.desc}</p>
+            </div>
+          ))}
+        </div>
+        <p className="text-center text-xs text-sky-600 mt-2">* Data based on internal outcome evaluations and user feedback.</p>
+      </section>
+
+      {/* Connected ecosystem section */}
+      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-sky-50">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+          {/* Left text + cards */}
+          <div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-sky-900 mb-6 max-w-md">
+              One connected ecosystem, <br /> many ways to feel better
+            </h2>
+            <p className="text-sky-800 mb-8 max-w-sm">
+              Your care is shaped by our team of therapists, AI and peer community working together
+              so nothing gets missed.
+            </p>
+          </div>
+
+          {/* Image landscape with overlay buttons */}
+          <div className="relative h-96 w-full rounded-3xl overflow-hidden shadow-lg">
+            <Image src="/3.jpg" alt="Group meditating" fill className="object-cover object-center" />
+
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-11/12 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[
+                { title: "Professional Counseling", href: "/counseling" },
+                { title: "AI Companion", href: "/ai-support" },
+                { title: "Supportive Community", href: "/community" },
+                { title: "Self-Help Toolkit", href: "/services" },
+              ].map((c) => (
+                <a key={c.title} href={c.href} className="block p-4 bg-white/80 backdrop-blur-md rounded-xl shadow text-center text-sm font-medium text-sky-900 hover:bg-white">
+                  {c.title}
+                </a>
+              ))}
             </div>
           </div>
         </div>
@@ -556,154 +617,7 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src="/sunrise-hope-new-beginning-peaceful-nature-healin.jpg"
-            alt="Healing journey background"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-blue-900/60 via-blue-900/40 to-blue-900/60"></div>
-        </div>
-
-        <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-          <Badge
-            variant="outline"
-            className="mb-8 px-8 py-3 text-xl bg-white/20 backdrop-blur-md border-white/30 text-white"
-          >
-            <span className="mr-2">✨</span>
-            Begin Your Healing Journey
-          </Badge>
-
-          <h2 className="text-6xl sm:text-7xl font-bold text-white mb-8 text-balance text-shadow-soft">
-            Your Mental Health <span className="text-blue-200">Journey Starts Here</span>
-          </h2>
-
-          <p className="text-2xl text-white/90 mb-12 text-pretty max-w-5xl mx-auto leading-relaxed text-shadow-soft">
-            Join thousands of students across India who have found support, community, and healing through our
-            compassionate digital mental health sanctuary. Available 24/7 in your language, with your culture in mind.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
-            <Button
-              size="lg"
-              asChild
-              className="text-xl px-16 py-8 group bg-white text-primary hover:bg-white/90 hover:shadow-2xl transition-all duration-300"
-            >
-              <Link href="/ai-support">
-                <span className="mr-3">💬</span>
-                Start Healing Conversation
-                <span className="ml-3">→</span>
-              </Link>
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              asChild
-              className="text-xl px-16 py-8 bg-white/10 backdrop-blur-md border-white/30 text-white hover:bg-white/20 transition-all duration-300"
-            >
-              <Link href="/counseling">
-                <span className="mr-3">💙</span>
-                Connect with Professional Care
-              </Link>
-            </Button>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            {[
-              { icon: "🛡️", text: "100% Confidential & Safe" },
-              { icon: "⏰", text: "24/7 Compassionate Support" },
-              { icon: "🌍", text: "10+ Regional Languages" },
-            ].map((item, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-center space-x-4 p-6 rounded-2xl bg-white/10 backdrop-blur-md"
-              >
-                <div className="p-4 bg-white/20 rounded-xl">
-                  <span className="text-2xl">{item.icon}</span>
-                </div>
-                <span className="font-semibold text-white text-lg">{item.text}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Enhanced Footer */}
-      <footer className="bg-foreground text-background py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-            <div className="col-span-1 md:col-span-2">
-              <div className="flex items-center space-x-3 mb-6">
-                <span className="text-3xl">💙</span>
-                <span className="text-3xl font-bold">Peace Code</span>
-              </div>
-              <p className="text-background/80 text-lg mb-8 leading-relaxed">
-                Supporting student mental health through professional counseling, peer community, and comprehensive
-                resources. Your journey to wellness starts here.
-              </p>
-              <div className="bg-background/10 rounded-2xl p-6">
-                <h4 className="font-semibold mb-3 text-xl">Tale of the Site</h4>
-                <p className="text-background/70 leading-relaxed">
-                  Peace Code was born from a vision to make mental health support accessible to every student in India.
-                  Through innovative technology and compassionate care, we're building bridges to wellness.
-                </p>
-                <p className="text-background/70 mt-4 font-medium">Site is developed by JAI MANN.</p>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="font-semibold mb-6 text-xl">Wellness Tools</h3>
-              <ul className="space-y-4">
-                {[
-                  { name: "Digital Journal", href: "/journal" },
-                  { name: "Breathe Pacer", href: "/breathe" },
-                  { name: "Focus Flow Timer", href: "/focus" },
-                  { name: "Gratitude Wall", href: "/gratitude" },
-                ].map((item, index) => (
-                  <li key={index}>
-                    <Link
-                      href={item.href}
-                      className="text-background/80 hover:text-background transition-colors text-lg"
-                    >
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="font-semibold mb-6 text-xl">Support</h3>
-              <ul className="space-y-4">
-                {[
-                  { name: "Professional Counseling", href: "/counseling" },
-                  { name: "Community Support", href: "/community" },
-                  { name: "AI Companion", href: "/ai-support" },
-                  { name: "Mental Health Screening", href: "/screening" },
-                  { name: "Crisis Support", href: "/crisis" },
-                ].map((item, index) => (
-                  <li key={index}>
-                    <Link
-                      href={item.href}
-                      className="text-background/80 hover:text-background transition-colors text-lg"
-                    >
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-background/20 pt-8 text-center">
-            <p className="text-background/70 text-lg">
-              © 2025 Peace Code. All rights reserved. • If you're in crisis, please contact emergency services or call
-              988.
-            </p>
-          </div>
-        </div>
-      </footer>
+      {/* Footer removed - global footer is injected via RootLayout */}
     </div>
   )
 }

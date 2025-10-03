@@ -2,7 +2,7 @@ import { type NextRequest, NextResponse } from "next/server"
 
 const HUGGING_FACE_API_URL =
   "https://api-inference.huggingface.co/models/tanusrich/Mental_Health_Chatbot/v1/chat/completions"
-const HUGGING_FACE_TOKEN = "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"
+const HUGGING_FACE_TOKEN = process.env.HF_TOKEN || ""
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     const response = await fetch(HUGGING_FACE_API_URL, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${HUGGING_FACE_TOKEN}`,
+        ...(HUGGING_FACE_TOKEN && { Authorization: `Bearer ${HUGGING_FACE_TOKEN}` }),
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -69,7 +69,7 @@ async function tryLegacyAPI(message: string) {
     const response = await fetch(legacyURL, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${HUGGING_FACE_TOKEN}`,
+        ...(HUGGING_FACE_TOKEN && { Authorization: `Bearer ${HUGGING_FACE_TOKEN}` }),
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
