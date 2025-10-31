@@ -258,7 +258,6 @@ export default function AboutPeaceCodePage() {
                 <span className="font-bold text-foreground text-3xl">70%</span> of students worldwide report feeling overwhelmed by academic pressure, 
                 social media comparison, and uncertainty about the future.
               </p>
-              </p>
               
               <p className="text-lg leading-relaxed text-muted-foreground">
                 Yet <strong className="text-foreground">stigma</strong>, lack of time, and limited access to affordable care stop many from getting help when they need it most. 
